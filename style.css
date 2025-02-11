@@ -76,7 +76,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	position: relative;
-	gap: 35px;
+	gap: 25px;
 	background: var(--white);
 	box-shadow: -3px 0 0 0 var(--black-transparent),
 		3px 0 0 0 var(--black-transparent), 0 -3px 0 0 var(--black-transparent),
@@ -213,14 +213,6 @@ body {
 	transform: translateY(-5px);
 }
 
-.btn:target {
-	transform: translateY(5px);
-}
-
-.btn:focus {
-	outline: none;
-}
-
 .btn:active {
 	transform: translateY(5px);
 }
@@ -283,6 +275,7 @@ body {
 }
 
 .footer {
+	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -303,6 +296,12 @@ body {
 .flap > .heart__container {
 	transform: translate(-50%, -50%) rotate(45deg);
 	transition-delay: 0s;
+}
+
+@media screen and (max-width: 768px) {
+	.btn:hover {
+		transform: none;
+	}
 }
 
 @media screen and (max-width: 375px) {
