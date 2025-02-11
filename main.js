@@ -27,106 +27,111 @@ export let COUNTER_DISAGREE_CLICKING = 0;
 let IS_LETTER_ROTATED = false;
 
 bgSong.volume = 0.1;
+bgSong.muted = true;
 
-const showElement = (element, displayProp = 'block') => (element.style.display = displayProp);
+const showElement = (element, displayProp = 'block') =>
+	(element.style.display = displayProp);
 const hideElement = (element) => (element.style.display = 'none');
 const addLetterS = (counter) => (counter > 1 ? 's' : '');
 
 const counterDate = () => {
-  const now = new Date();
-  const diffInSeconds = Math.floor((now - START_DATE) / 1000);
+	const now = new Date();
+	const diffInSeconds = Math.floor((now - START_DATE) / 1000);
 
-  const totalDays = Math.floor(diffInSeconds / (24 * 60 * 60));
-  const totalHours = Math.floor(diffInSeconds / (60 * 60));
-  const totalMinutes = Math.floor(diffInSeconds / 60);
-  const totalSeconds = diffInSeconds;
-  const totalYears = Math.floor(totalDays / 365); // Approximate years
+	const totalDays = Math.floor(diffInSeconds / (24 * 60 * 60));
+	const totalHours = Math.floor(diffInSeconds / (60 * 60));
+	const totalMinutes = Math.floor(diffInSeconds / 60);
+	const totalSeconds = diffInSeconds;
+	const totalYears = Math.floor(totalDays / 365); // Approximate years
 
-  years.innerText = `Year${addLetterS(totalYears)}: ${totalYears}`;
-  days.innerText = `Day${addLetterS(totalDays)}: ${totalDays}`;
-  hours.innerText = `Hour${addLetterS(totalHours)}: ${totalHours}`;
-  minutes.innerText = `Minute${addLetterS(totalMinutes)}: ${totalMinutes}`;
-  seconds.innerText = `Second${addLetterS(totalSeconds)}: ${totalSeconds}`;
+	years.innerText = `Year${addLetterS(totalYears)}: ${totalYears}`;
+	days.innerText = `Day${addLetterS(totalDays)}: ${totalDays}`;
+	hours.innerText = `Hour${addLetterS(totalHours)}: ${totalHours}`;
+	minutes.innerText = `Minute${addLetterS(totalMinutes)}: ${totalMinutes}`;
+	seconds.innerText = `Second${addLetterS(totalSeconds)}: ${totalSeconds}`;
 };
 setInterval(counterDate, 1000);
 
 const rotateScene = () => {
-  sceneContainer.style.transform = 'rotate(90deg)';
-  sceneContainer.style.padding = '0';
+	sceneContainer.style.transform = 'rotate(90deg)';
+	sceneContainer.style.padding = '0';
 };
 
 btnY.addEventListener('click', (e) => {
-  e.stopPropagation();
+	e.stopPropagation();
 
-  if (COUNTER_AGREE_CLICKING > 1) return;
-  COUNTER_AGREE_CLICKING += 1;
+	if (COUNTER_AGREE_CLICKING > 1) return;
+	COUNTER_AGREE_CLICKING += 1;
 
-  hideElement(sceneTitle);
-  hideElement(imgContainer);
-  hideElement(btnContainer);
+	hideElement(sceneTitle);
+	hideElement(imgContainer);
+	hideElement(btnContainer);
 
-  sceneContainer.style.minWidth = '362px';
-  sceneContainer.style.minHeight = '458px';
-  sceneContainer.style.scale = '0.72';
-  sceneContainer.style.backgroundColor = '#f05b7e';
-  sceneContainer.style.cursor = 'pointer';
+	sceneContainer.style.minWidth = '362px';
+	sceneContainer.style.minHeight = '458px';
+	sceneContainer.style.scale = '0.72';
+	sceneContainer.style.backgroundColor = '#f05b7e';
+	sceneContainer.style.cursor = 'pointer';
 
-  rotateScene();
-  showElement(letterContainer, 'flex');
+	rotateScene();
+	showElement(letterContainer, 'flex');
 
-  setTimeout(() => {
-    IS_LETTER_ROTATED = true;
-    showElement(textContainer, 'flex');
-  }, 1500);
+	setTimeout(() => {
+		IS_LETTER_ROTATED = true;
+		showElement(textContainer, 'flex');
+	}, 1500);
 
-  showElement(btnR);
+	showElement(btnR);
 });
 
 sceneContainer.addEventListener('click', () => {
-  // is clickable just after textContainer is rotated
-  if (!IS_LETTER_ROTATED) return;
+	// is clickable just after textContainer is rotated
+	if (!IS_LETTER_ROTATED) return;
 
-  if (COUNTER_AGREE_CLICKING > 0) {
-    letterContainer.classList.toggle('flap');
+	if (COUNTER_AGREE_CLICKING > 0) {
+		letterContainer.classList.toggle('flap');
 
-    if (letterContainer.classList.contains('flap')) {
-      letterContainer.setAttribute('title', 'Close');
-    } else {
-      letterContainer.setAttribute('title', 'Open');
-    }
-  }
+		if (letterContainer.classList.contains('flap')) {
+			letterContainer.setAttribute('title', 'Close');
+		} else {
+			letterContainer.setAttribute('title', 'Open');
+		}
+	}
 });
 
 btnN.addEventListener('click', () => {
-  COUNTER_DISAGREE_CLICKING += 1;
+	COUNTER_DISAGREE_CLICKING += 1;
 
-  if (COUNTER_DISAGREE_CLICKING === 1) {
-    sceneTitle.innerHTML = 'You can lose my heart <br/>Please confirm your choice!';
-    btnY.innerHTML = `CATCH!!!`;
-    btnN.innerText = 'Confirm';
+	if (COUNTER_DISAGREE_CLICKING === 1) {
+		sceneTitle.innerHTML =
+			'You can lose my heart <br/>Please confirm your choice!';
+		btnY.innerHTML = `CATCH!!!`;
+		btnN.innerText = 'Confirm';
 
-    showElement(scene_2);
-    hideElement(scene_1);
-  } else {
-    showElement(scene_3, 'flex');
-    hideElement(sceneTitle);
-    hideElement(scene_1);
-    hideElement(scene_2);
-    hideElement(btnContainer);
-  }
+		showElement(scene_2);
+		hideElement(scene_1);
+	} else {
+		showElement(scene_3, 'flex');
+		hideElement(sceneTitle);
+		hideElement(scene_1);
+		hideElement(scene_2);
+		hideElement(btnContainer);
+	}
 
-  showElement(btnR);
+	showElement(btnR);
 });
 
 btnR.addEventListener('click', () => window.location.reload());
 btnV.addEventListener('click', () => {
-  if (bgSong.muted) {
-    bgSong.muted = false;
-    showElement(volumeSound);
-    hideElement(volumeMute);
-  } else {
-    bgSong.muted = true;
-    showElement(volumeMute);
-    hideElement(volumeSound);
-  }
+	if (bgSong.muted) {
+		bgSong.play();
+		bgSong.muted = false;
+		showElement(volumeSound);
+		hideElement(volumeMute);
+	} else {
+		bgSong.pause();
+		bgSong.muted = true;
+		showElement(volumeMute);
+		hideElement(volumeSound);
+	}
 });
