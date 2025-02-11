@@ -219,11 +219,11 @@ body {
 
 .text__container {
 	display: none;
-	padding: 45px;
+	padding: 35px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	font-size: 24px;
+	font-size: 22px;
 	text-align: center;
 	gap: 5px;
 	background: var(--white);
